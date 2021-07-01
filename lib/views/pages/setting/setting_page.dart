@@ -3,10 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_unit/app/router/unit_router.dart';
 import 'package:flutter_unit/app/res/toly_icon.dart';
 import 'package:flutter_unit/blocs/bloc_exp.dart';
+import 'package:flutter_unit/views/widgets/FiledText.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         title: Text('应用设置'),
@@ -18,9 +21,10 @@ class SettingPage extends StatelessWidget {
               TolyIcon.icon_tag,
               color: Theme.of(context).primaryColor,
             ),
-            title: Text('编辑器ip设置'),
+            title: FiledText(),
             trailing: _nextIcon(context),
-            onTap: () => Navigator.of(context).pushNamed(UnitRouter.theme_color_setting),
+            onTap: () =>
+                Navigator.of(context).pushNamed(UnitRouter.theme_color_setting),
           ),
           Divider(),
           ListTile(
@@ -30,7 +34,8 @@ class SettingPage extends StatelessWidget {
             ),
             title: Text('主题色设置'),
             trailing: _nextIcon(context),
-            onTap: () => Navigator.of(context).pushNamed(UnitRouter.theme_color_setting),
+            onTap: () =>
+                Navigator.of(context).pushNamed(UnitRouter.theme_color_setting),
           ),
           Divider(),
           ListTile(
@@ -40,7 +45,8 @@ class SettingPage extends StatelessWidget {
             ),
             title: Text('字体设置'),
             trailing: _nextIcon(context),
-            onTap: () => Navigator.of(context).pushNamed(UnitRouter.font_setting),
+            onTap: () =>
+                Navigator.of(context).pushNamed(UnitRouter.font_setting),
           ),
           Divider(),
           ListTile(
@@ -50,7 +56,8 @@ class SettingPage extends StatelessWidget {
             ),
             title: Text('item样式设置'),
             trailing: _nextIcon(context),
-            onTap: () => Navigator.of(context).pushNamed(UnitRouter.item_style_setting),
+            onTap: () =>
+                Navigator.of(context).pushNamed(UnitRouter.item_style_setting),
           ),
           Divider(),
           ListTile(
@@ -60,7 +67,8 @@ class SettingPage extends StatelessWidget {
             ),
             title: Text('代码高亮样式'),
             trailing: _nextIcon(context),
-            onTap: () => Navigator.of(context).pushNamed(UnitRouter.code_style_setting),
+            onTap: () =>
+                Navigator.of(context).pushNamed(UnitRouter.code_style_setting),
           ),
           Divider(),
           _buildShowBg(context),
@@ -74,7 +82,8 @@ class SettingPage extends StatelessWidget {
             ),
             title: Text('版本信息'),
             trailing: _nextIcon(context),
-            onTap: () => Navigator.of(context).pushNamed(UnitRouter.version_info),
+            onTap: () =>
+                Navigator.of(context).pushNamed(UnitRouter.version_info),
           ),
         ],
       ),
@@ -99,17 +108,17 @@ class SettingPage extends StatelessWidget {
   Widget _buildShowOver(BuildContext context) =>
       BlocBuilder<GlobalBloc, GlobalState>(
           builder: (_, state) => SwitchListTile(
-            value: state.showPerformanceOverlay,
-            secondary: Icon(
-              TolyIcon.icon_show,
-              color: Theme.of(context).primaryColor,
-            ),
-            title: Text('显示性能浮层'),
-            onChanged: (show) {
-              BlocProvider.of<GlobalBloc>(context)
-                  .add(EventSwitchShowOver(show));
-            },
-          ));
+                value: state.showPerformanceOverlay,
+                secondary: Icon(
+                  TolyIcon.icon_show,
+                  color: Theme.of(context).primaryColor,
+                ),
+                title: Text('显示性能浮层'),
+                onChanged: (show) {
+                  BlocProvider.of<GlobalBloc>(context)
+                      .add(EventSwitchShowOver(show));
+                },
+              ));
 
   Widget _nextIcon(BuildContext context) =>
       Icon(Icons.chevron_right, color: Theme.of(context).primaryColor);

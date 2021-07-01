@@ -5,7 +5,9 @@ import 'package:flutter_unit/model/github/issue_comment.dart';
 import 'package:flutter_unit/model/github/issue.dart';
 import 'package:flutter_unit/model/github/repository.dart';
 import 'package:flutter_unit/app/utils/Toast.dart';
+import 'package:flutter_unit/views/widgets/FiledText.dart';
 import 'package:interfacerequest/interfacerequest.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 /// create by 张风捷特烈 on 2020/6/17
 /// contact me by email 1981462002@qq.com
@@ -41,9 +43,16 @@ class IssuesApi {
   }
 
   static void upLoadCode(BuildContext context, String code) async {
-    SocketManager.get().load("192.168.42.155", 16868).send(code, (replay) {
-      Toast.toast(context, '代码复制成功:请直接在编辑器中粘贴使用',
+    String ip = "";
+    if (FiledText.IP.isEmpty) {
+      var sp = await SharedPreferences.getInstance();
+      ip = sp.getString("IP");
+    } else {
+      ip = FiledText.IP;
+    }
 
+    SocketManager.get().load(ip, 16868).send(code, (replay) {
+      Toast.toast(context, '代码复制成功:请直接在编辑器中粘贴使用',
           duration: Duration(seconds: 2));
     }, (errorMsg) {
       Toast.toast(context, '代码复制失败: $errorMsg', duration: Duration(seconds: 2));
