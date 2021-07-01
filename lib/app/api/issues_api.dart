@@ -1,15 +1,19 @@
 import 'dart:convert';
-
+import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_unit/model/github/issue_comment.dart';
 import 'package:flutter_unit/model/github/issue.dart';
 import 'package:flutter_unit/model/github/repository.dart';
+import 'package:flutter_unit/app/utils/Toast.dart';
+import 'package:interfacerequest/interfacerequest.dart';
 
 /// create by 张风捷特烈 on 2020/6/17
 /// contact me by email 1981462002@qq.com
 /// 说明:
 
 const kBaseUrl = 'http://119.45.173.197:8080/api/v1';
+
+const editBaseUrl = 'http://119.45.173.197:8080/api/v1';
 
 class IssuesApi {
   static Dio dio = Dio(BaseOptions(baseUrl: kBaseUrl));
@@ -29,9 +33,20 @@ class IssuesApi {
   }
 
   static Future<List<IssueComment>> getIssuesComment(int pointId) async {
-    List<dynamic> res = (await dio.get('/pointComment/$pointId')).data['data'] as List;
+    List<dynamic> res =
+        (await dio.get('/pointComment/$pointId')).data['data'] as List;
     return res
         .map((e) => IssueComment.fromJson(json.decode(e['pointCommentData'])))
         .toList();
+  }
+
+  static void upLoadCode(BuildContext context, String code) async {
+    SocketManager.get().load("192.168.42.155", 16868).send(code, (replay) {
+      Toast.toast(context, '代码复制成功:请直接在编辑器中粘贴使用',
+
+          duration: Duration(seconds: 2));
+    }, (errorMsg) {
+      Toast.toast(context, '代码复制失败: $errorMsg', duration: Duration(seconds: 2));
+    });
   }
 }

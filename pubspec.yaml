@@ -11,6 +11,12 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+
+  interfacerequest:
+    git:
+      url: git@github.com:AaronHuange/interfacerequest-flutter.git
+      ref: master
+
   cupertino_icons: ^1.0.2
 
   flutter_bloc: ^7.0.0 # 状态管理

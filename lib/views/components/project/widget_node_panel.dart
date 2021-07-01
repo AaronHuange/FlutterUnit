@@ -10,6 +10,7 @@ import 'package:toggle_rotate/toggle_rotate.dart';
 
 import '../permanent/feedback_widget.dart';
 import 'package:flutter_unit/views/components/permanent/code/highlighter_style.dart';
+import 'package:flutter_unit/app/api/issues_api.dart';
 
 /// create by 张风捷特烈 on 2020-04-13
 /// contact me by email 1981462002@qq.com
@@ -81,7 +82,8 @@ class _WidgetNodePanelState extends State<WidgetNodePanel> {
             ),
           ),
           _buildShareButton(),
-          _buildCodeButton()
+          _buildCodeButton(),
+          _buildEidtButton(),
         ],
       );
 
@@ -122,6 +124,20 @@ class _WidgetNodePanelState extends State<WidgetNodePanel> {
         ),
       );
 
+  Widget _buildEidtButton() => FeedbackWidget(
+        mode: FeedMode.fade,
+        a: 0.4,
+        onPressed: _doEdit,
+        child: Padding(
+          padding: const EdgeInsets.only(right: 10),
+          child: Icon(
+            TolyIcon.icon_tag,
+            size: 20,
+            color: themeColor,
+          ),
+        ),
+      );
+
   Widget _buildCode(BuildContext context) => AnimatedCrossFade(
         firstCurve: Curves.easeInCirc,
         secondCurve: Curves.easeInToLinear,
@@ -130,7 +146,7 @@ class _WidgetNodePanelState extends State<WidgetNodePanel> {
           width: MediaQuery.of(context).size.width,
           child: CodeWidget(
             fontFamily: widget.codeFamily,
-            code: isFirst?'':widget.code,
+            code: isFirst ? '' : widget.code,
             style: widget.codeStyle ??
                 HighlighterStyle.fromColors(HighlighterStyle.lightColor),
           ),
@@ -139,9 +155,14 @@ class _WidgetNodePanelState extends State<WidgetNodePanel> {
         crossFadeState: _crossFadeState,
       );
 
+  //将代码块传到编辑器中
+  _doEdit() {
+    IssuesApi.upLoadCode(context, "" + widget.code);
+  }
+
   //执行分享
   _doShare() {
-    Share.share(widget.code);
+    Share.share("object" + widget.code);
   }
 
   // 折叠代码面板

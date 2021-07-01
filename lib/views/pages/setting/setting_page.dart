@@ -15,6 +15,16 @@ class SettingPage extends StatelessWidget {
         children: <Widget>[
           ListTile(
             leading: Icon(
+              TolyIcon.icon_tag,
+              color: Theme.of(context).primaryColor,
+            ),
+            title: Text('编辑器ip设置'),
+            trailing: _nextIcon(context),
+            onTap: () => Navigator.of(context).pushNamed(UnitRouter.theme_color_setting),
+          ),
+          Divider(),
+          ListTile(
+            leading: Icon(
               Icons.palette,
               color: Theme.of(context).primaryColor,
             ),
