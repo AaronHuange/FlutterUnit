@@ -20,6 +20,9 @@ class _FiledText extends State<FiledText> {
     SharedPreferences.getInstance().then((_sp) {
       sp = _sp;
       FiledText.IP = sp.getString('IP');
+      if (FiledText.IP==null) {
+        FiledText.IP = "";
+      }
     });
   }
 

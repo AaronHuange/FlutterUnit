@@ -23,8 +23,8 @@ class SettingPage extends StatelessWidget {
             ),
             title: FiledText(),
             trailing: _nextIcon(context),
-            onTap: () =>
-                Navigator.of(context).pushNamed(UnitRouter.theme_color_setting),
+            // onTap: () =>
+            //     Navigator.of(context).pushNamed(UnitRouter.theme_color_setting),
           ),
           Divider(),
           ListTile(
