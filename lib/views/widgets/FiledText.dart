@@ -15,16 +15,19 @@ class _FiledText extends State<FiledText> {
   var sp;
 
   @override
-  void initState() async {
+  void initState() {
     super.initState();
-    sp= await SharedPreferences.getInstance();
+    SharedPreferences.getInstance().then((_sp) {
+      sp = _sp;
+      FiledText.IP = sp.getString('IP');
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return TextField(
-      decoration:
-          InputDecoration(hintText: 'ip地址', border: OutlineInputBorder()),
+      decoration: InputDecoration(
+          hintText: FiledText.IP.isEmpty ? "请输入ip地址" : FiledText.IP),
       controller: this._username,
       onChanged: (value) {
         setState(() {

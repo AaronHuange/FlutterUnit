@@ -177,6 +177,15 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.1.4"
+  interfacerequest:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: master
+      resolved-ref: "70f4402ff5c35e1c68242ec90550a2473ef31064"
+      url: "git@github.com:AaronHuange/interfacerequest-flutter.git"
+    source: git
+    version: "0.0.0"
   intl:
     dependency: "direct main"
     description:
